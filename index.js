@@ -117,20 +117,22 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
   var placeholder = {}
   self.sockets.push(placeholder)
 
-  var connectOptions = mergeOptions({}, self.proxyOptions,
-    { method: 'CONNECT'
-    , path: options.host + ':' + options.port
-    , agent: false
-    , headers: {
-        host: options.host + ':' + options.port
-      }
-    , servername: self.proxyOptions.host
-    }
-  )
-  if (connectOptions.proxyAuth) {
+  var connectOptions = {
+    method: 'CONNECT',
+    host: self.proxyOptions.host,
+    port: self.proxyOptions.port,
+    path: options.host + ':' + options.port,
+    agent: false,
+    headers: {
+      host: options.host + ':' + options.port
+    },
+    servername: self.proxyOptions.host
+  }
+
+  if (self.proxyOptions.proxyAuth) {
     connectOptions.headers = connectOptions.headers || {}
     connectOptions.headers['Proxy-Authorization'] = 'Basic ' +
-        Buffer.from(connectOptions.proxyAuth).toString('base64')
+        Buffer.from(self.proxyOptions.proxyAuth).toString('base64')
   }
 
   debug('making CONNECT request')
