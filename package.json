@@ -3,7 +3,7 @@
   "name": "sm-tunnel-agent",
   "license": "Apache-2.0",
   "description": "HTTP proxy tunneling agent. Formerly part of request/request, now a standalone module.",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "repository": {
     "url": "https://github.com/request/tunnel-agent"
   },
